@@ -15,7 +15,7 @@ Members,
 Atraction_rating_employee,
 Atraction_rating_members.
 
-![alt text](https://github.com/RalucaDB/RalucaB_DB_project/blob/main/Model%20abstract.jpg)
+![alt text](https://github.com/RalucaDB/project_II_raluca/blob/main/Model%20abstract.jpg)
 
 
 ![alt text](https://github.com/RalucaDB/RalucaB_DB_project/blob/main/Model%20conceptual.jpg)
