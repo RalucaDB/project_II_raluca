@@ -23,4 +23,9 @@ UPDATE employee SET  adress='Bulevardul Vasile Parvan 7' WHERE id IN --STEP upda
 	)
 );
 
-SELECT * FROM  employee;
+alter table parks add column area DECIMAL;
+update parks set area=ST_Area(geom)/10000;
+
+update neighborhood set suprafata=ST_Area(geom)/10000;
+
+

@@ -105,6 +105,51 @@ CREATE TABLE IF NOT EXISTS atraction_rating_members(
 create table neighborhood_2 as
 select name, count (*) neighborhood_id,ST_Union(geom) geom from parks group by name;
 
-select * from atractions;
+select * from centroid_neighborhood;
+
+create table centroid_neighborhood as
+select name as nume_cartier, ST_centroid(geom) as centroid from neighborhood;
+
+create table centroid_parks AS
+select name as nume_parc, ST_Centroid(geom) as centorid from parks;
+
+select * from centroid_parks_union;
+
+create table centroid_parks_union AS
+select nume_parc as nume, ST_Centroid(centorid) as centorid from centroid_parks;
+
+alter table parks add column perimetru DECIMAL;
+update parks set perimetru= ST_Perimeter(geom)/1000 ;
+
+alter table neighborhood add column perimetru DECIMAL;
+update neighborhood set perimetru= ST_Perimeter(geom)/1000 ;
+
+----polygon to line
+create table parks_linii as 
+select name, ST_Boundary(geom) as geom from parks;
+select * from neighborhood;
+
+create table neighborhood_linii as 
+select name, ST_Boundary(geom) as geom from neighborhood;
+
+create table parks_poligon as 
+select parks_linii, ST_MakePolygon(geom) as geom from parks_linii;
+
+create table parks_poligon_2 as 
+select ST_Dump(ST_Polygonize(geom)) as geom from parks_linii;
+select * from parks_poligon_2;
+
+
+
+alter table neighborhood add column city_fid INTEGER NOT NULL Default 1;
+
+create table city(
+	ID SERIAL PRIMARY KEY NOT NULL,
+	NAME VARCHAR (100) NOT NULL,
+	GEOM GEOMETRY(Polygon, 4326)
+);
+
+alter table neighborhood add constraint city_id_fk foreign key(city_fid) references city(id);
+
 
 

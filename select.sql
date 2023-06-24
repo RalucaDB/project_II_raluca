@@ -90,4 +90,17 @@ select geom from neighborhood
 union
 select ST_Centroid(geom) geom from neighborhood;
 
-select * from atractions;
+select name, SUM(pop2011) populatie_2011, ST_Union(geom) geom from judete group by region;
+select MIN(suprafata), Max(suprafata), Sum(suprafata) from neighborhood;	
+
+select ST_Y(ST_Centroid(centorid)),ST_X(ST_Centroid(centorid)) from centroid_parks;
+
+select * from neighborhood;
+select ST_AsGeoJSON(geom) from parks;
+			
+select ST_AsEWKT(geom) from water_fountains;
+			
+select ST_AsKML(geom) from atractions;
+
+
+
